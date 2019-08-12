@@ -2,7 +2,7 @@
     "name": "idno/media",
     "description": "Upload audio or music and turn your site into a podcast.",
     "type": "known-plugin",
-    "version": "0.9.10",
+    "version": "1.0.0",
     "require": {
         "composer/installers": "~1.0"
     },
