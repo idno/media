@@ -16,6 +16,18 @@ namespace IdnoPlugins\Media {
 
         function getDescription()
         {
+            $body = $this->body;
+            if (!empty($this->inreplyto)) {
+                if (is_array($this->inreplyto)) {
+                    foreach ($this->inreplyto as $inreplyto) {
+                        $body = '<a href="' . $inreplyto . '" class="u-in-reply-to"></a>' . $body;
+                    }
+                } else {
+                    $body = '<a href="' . $this->inreplyto . '" class="u-in-reply-to"></a>' . $body;
+                }
+            }
+            return $body;
+
             return $this->body;
         }
 
@@ -27,6 +39,15 @@ namespace IdnoPlugins\Media {
         {
             return 'media';
         }
+
+/*
+            $meta = array('type' => 'media');
+            if ($this->inreplyto) {
+                $meta['in-reply-to'] = $this->inreplyto;
+            //    $meta['type'] = 'reply';
+            }
+            return $meta;
+*/
 
         /**
          * Saves changes to this object based on user input
@@ -46,6 +67,19 @@ namespace IdnoPlugins\Media {
                     return false;
                 }
             }
+
+            $this->inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
+
+                // TODO fetch syndicated reply targets asynchronously (or maybe on-demand, when syndicating?)
+                if (!empty($inreplyto)) {
+                    if (is_array($inreplyto)) {
+                        foreach ($inreplyto as $inreplytourl) {
+                            $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplytourl, $this->syndicatedto);
+                        }
+                    } else {
+                        $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplyto);
+                    }
+                }
 
             $this->title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
             $this->body  = \Idno\Core\Idno::site()->currentPage()->getInput('body');
