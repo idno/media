@@ -37,17 +37,12 @@ namespace IdnoPlugins\Media {
          */
         function getActivityStreamsObjectType()
         {
-            return 'media';
-        }
-
-/*
             $meta = array('type' => 'media');
             if ($this->inreplyto) {
                 $meta['in-reply-to'] = $this->inreplyto;
-            //    $meta['type'] = 'reply';
             }
             return $meta;
-*/
+        }
 
         /**
          * Saves changes to this object based on user input
