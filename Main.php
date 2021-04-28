@@ -18,8 +18,8 @@ namespace IdnoPlugins\Media {
         function registerPages()
         {
             \Idno\Core\Idno::site()->routes()->addRoute('/media/edit/?', '\IdnoPlugins\Media\Pages\Edit');
-            \Idno\Core\Idno::site()->routes()->addRoute('/media/edit/([A-Za-z0-9\-]+)/?', '\IdnoPlugins\Media\Pages\Edit');
-            \Idno\Core\Idno::site()->routes()->addRoute('/media/delete/([A-Za-z0-9\-]+)/?', '\IdnoPlugins\Media\Pages\Delete');
+            \Idno\Core\Idno::site()->routes()->addRoute('/media/edit/:id/?', '\IdnoPlugins\Media\Pages\Edit');
+            \Idno\Core\Idno::site()->routes()->addRoute('/media/delete/:id/?', '\IdnoPlugins\Media\Pages\Delete');
 
             \Idno\Core\Idno::site()->template()->extendTemplate('shell/head', 'media/shell/head');
             \Idno\Core\Idno::site()->template()->extendTemplate('shell/footer', 'media/shell/footer');
